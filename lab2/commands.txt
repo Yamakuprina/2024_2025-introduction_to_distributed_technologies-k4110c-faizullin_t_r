@@ -1,0 +1,3 @@
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl port-forward service/app1 3000:3000

@@ -1,0 +1,6 @@
+docker pull vault:1.13.3
+kubectl apply -f vault-deployment.yaml
+kubectl run vault --image=vault:1.13.3
+kubectl expose pod vault --type=NodePort --port=8200
+kubectl logs vault
+kubectl port-forward service/vault 8200:8200
