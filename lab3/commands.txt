@@ -1,0 +1,11 @@
+minikube addons enable ingress
+C:\Program Files\Git\usr\bin\openssl.exe req -new -newkey rsa:4096 -days 3600 -nodes -x509 -sha256 -addext "subjectAltName = DNS:tfayzullinlab3.com" -out selfsigned.crt -keyout selfsigned.key
+
+kubectl create secret tls secret-tls --key="selfsigned.key" --cert="selfsigned.crt"
+kubectl apply -f configmap.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl apply -f ingress.yaml
+
+notepad C:\Windows\System32\drivers\etc\hosts
+minikube tunnel
