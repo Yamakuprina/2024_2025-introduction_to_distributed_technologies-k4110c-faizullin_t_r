@@ -14,7 +14,7 @@ kubectl apply -f configmap.yaml
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 
-kubectl port-forward service/lab4-service 3000:3000
+kubectl port-forward service/app1 8200:3000                                                                         
 
 kubectl exec -ti frontend-l3-864c97d966-kndjj -- sh
 ping 192.168.1.192
