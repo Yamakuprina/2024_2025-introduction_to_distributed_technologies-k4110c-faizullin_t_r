@@ -1,0 +1,22 @@
+minikube start --network-plugin=cni --cni=calico --nodes 2 -p multinode-demo
+kubectl get nodes
+kubectl get pods -l k8s-app=calico-node -A
+kubectl label nodes multinode-demo ra=a01
+kubectl label nodes multinode-demo-m02 ra=a02
+kubectl create -f .\calicoctl.yaml
+
+kubectl exec -n kube-system calicoctl -- /usr/bin/calicoctl get ippools -o wide --allow-version-mismatch
+kubectl delete ippools default-ipv4-ippool
+
+kubectl exec -i -n kube-system calicoctl -- /usr/bin/calicoctl --allow-version-mismatch create -f - < ippool.yaml
+
+kubectl apply -f configmap.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+kubectl port-forward service/lab4-service 3000:3000
+
+kubectl exec -ti frontend-l3-864c97d966-kndjj -- sh
+ping 192.168.1.192
+kubectl exec -ti frontend-l3-864c97d966-nc5m2 -- sh
+ping 192.168.0.65

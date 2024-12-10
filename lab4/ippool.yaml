@@ -1,0 +1,21 @@
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: ra-a01-pool
+spec:
+  cidr: 192.168.0.0/24
+  ipipMode: Always
+  natOutgoing: true
+  nodeSelector: ra == "a01"
+
+---
+
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: ra-a02-pool
+spec:
+  cidr: 192.168.1.0/24
+  ipipMode: Always
+  natOutgoing: true
+  nodeSelector: ra == "a02"
